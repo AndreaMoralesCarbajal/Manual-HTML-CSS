@@ -5,10 +5,10 @@
 ```markdown
 # Design Guide
 
-Esta es una guía de diseño HTML/CSS basada en Bootstrap. Contiene:
-- Estándares de colores.
-- Tipografías utilizadas.
-- Componentes reutilizables.
+Esta es una guía de diseño HTML/CSS basada en el proyecto Nequén. Contiene:
+- Tabla.
+- Cards.
+- Gráficas.
 
 ## Cómo usar
 1. Clona el repositorio: `git clone https://github.com/tuusuario/design-guide.git`
