@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de diseño VLIM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbarNav" data-bs-offset="100" tabindex="0">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Guía de diseño VLIM</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#colors">Colores</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#typography">Tipografía</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#grid-flex">Grid y Flex</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#charts">Gráficas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#alerts">Alertas</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="modal fade bd-example-modal-lg" id="modalAdeudo" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="border-radius: 35px;">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel">
+                        <i class="ri-settings-5-line text-primary fs-1"></i> Configuración Recargos
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="card border-0 ">
+                        <div class="live-preview border-0">
+                            <div class="container-fluid">
+                                <div class="row mb-3">
+                                    <div class="col-md-6 d-flex align-items-center">
+                                        <label for="reAcumulado" class="form-label">Recargos acumulados:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control text-danger" id="reAcumulado" name="reAcumulado"
+                                            type="number" placeholder="Recargo acumulado" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6 d-flex align-items-center">
+                                        <label for="condonado" class="form-label"></b>Condonado:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" id="condonado" name="condonado" type="number"
+                                            placeholder="Condonado" required>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6 d-flex align-items-center">
+                                        <label for="reAplicados" class="form-label"></b>Recargos aplicados:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" id="reAplicados" name="reAplicados" type="number"
+                                            placeholder="Recargo aplicados" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <label for="notas" class="form-label">NOTAS:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <textarea class="form-control" id="notasCondonado"
+                                        placeholder="Se condonan USD 1,000.00 por..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary"
+                        onclick="$('#modalCondonado').modal('hide'); $('#modalAdeudo').modal('show');">
+                        Aceptar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5 pt-5">
+        <h1 class="text-center my-4">Manual de guía de diseño HTML/CSS.</h1>
+        <div class="text-center">
+            <img src="img/vlim.png" alt="logotipo vlim" height="100px">
+        </div>
+
+
+        <div class="card border-0">
+            <h2>Cards</h2>
+            <div class="live-preview border-0">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- Tarjeta Importe -->
+                        <div class="col-md-6 col-lg-3 mt-3">
+                            <div class="status-card" style="background-color: #0098ffed; border-radius: 30px; padding: 15px; position: relative;">
+                                <div id="chart-containerA" style="position: absolute; bottom: 23px; left: 10px;"></div>
+                                <div class="d-flex flex-column align-items-end" style="padding-left: 170px;">
+                                    <h4 class="amount-text" style="padding: 10px; color: #FFFFFF; margin-top: 0;" id="total"></h4>
+                                    <p class="text-end me-2 fs-5" style="color: #FFFFFF;">100%</p>
+                                </div>
+                                <p style="padding: 10px; color: #FFFFFF; margin-bottom: 0; text-align: left;">IMPORTE TOTAL</p>
+                            </div>
+                        </div>
+
+                        <!-- Tarjeta Pagado -->
+                        <div class="col-md-6 col-lg-3 mt-3">
+                            <div class="status-card" style="background-color: #469146; border-radius: 30px; padding: 15px; position: relative;">
+                                <div id="chart-containerB" style="position: absolute; bottom: 23px; left: 10px;"></div>
+                                <div class="d-flex flex-column align-items-end" style="padding-left: 170px;">
+                                    <h4 class="amount-text" style="padding: 10px; color: #FFFFFF; margin-top: 0;" id="pagado"></h4>
+                                    <p class="text-end me-2 fs-5" style="color: #FFFFFF;">100%</p>
+                                </div>
+                                <p style="padding: 10px; color: #FFFFFF; margin-bottom: 0; text-align: left;">PAGADO</p>
+                            </div>
+                        </div>
+
+                        <!-- Tarjeta Saldo -->
+                        <div class="col-md-6 col-lg-3 mt-3">
+                            <div class="status-card" style="background-color: #ffb52d; border-radius: 30px; padding: 15px; position: relative;">
+                                <div id="chart-containerC" style="position: absolute; bottom: 23px; left: 10px;"></div>
+                                <div class="d-flex flex-column align-items-end" style="padding-left: 170px;">
+                                    <h4 class="amount-text" style="padding: 10px; color: #FFFFFF; margin-top: 0;" id="saldo">
+                                    </h4>
+                                    <p class="text-end me-2 fs-5" style="color: #FFFFFF;">100%</p>
+                                </div>
+                                <p style="padding: 10px; color: #FFFFFF; margin-bottom: 0; text-align: left; ">SALDO INSOLUTO</p>
+                            </div>
+                        </div>
+
+                        <!-- Tarjeta Adeudo -->
+                        <div class="col-md-6 col-lg-3 mt-3">
+                            <div class="status-card" style="background-color: #df3030; border-radius: 30px; padding: 15px; position: relative;" onclick="$('#modalAdeudo').modal('show');  generarTablaAdeudo();">
+                                <div id="chart-containerD" style="position: absolute; bottom: 23px; left: 10px;"></div>
+                                <div class="d-flex flex-column align-items-end" style="padding-left: 170px;">
+                                    <h4 class="amount-text" style="padding: 10px; color: #FFFFFF; margin-top: 0;" id="adeudo"></h4>
+                                    <p id="pAdeudo" class="text-end me-2 fs-5" style="color: #FFFFFF;">-</p>
+                                </div>
+                                <p style="padding: 10px; color: #FFFFFF; margin-bottom: 0; text-align: left;">ADEUDO</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+        <div class="row">
+            <div class="col-md-9">
+                <section id="colors" class="mt-4">
+                    <h2>Colores</h2>
+                    <p>Disponibles desde bootstrap</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <div class="p-3 bg-primary text-white text-uppercase fw-bold">Primario</div>
+                        <div class="p-3 bg-secondary text-white text-uppercase fw-bold">Secundario</div>
+                        <div class="p-3 bg-success text-white text-uppercase fw-bold">Éxito</div>
+                        <div class="p-3 bg-danger text-white text-uppercase fw-bold">Peligro</div>
+                        <div class="p-3 bg-warning text-dark text-uppercase fw-bold">Advertencia</div>
+                        <div class="p-3 bg-info text-dark text-uppercase fw-bold">Información</div>
+                    </div>
+                </section>
+
+                <section id="typography" class="mt-4">
+                    <h2>Tipografía</h2>
+                    <p>A continuación, se presentan algunos estilos tipográficos comunes en Bootstrap:</p>
+                    <p class="fs-4 fw-bold">Texto grande con <code>.fs-4</code> y negrita.</p>
+                    <p class="text-muted">Texto secundario con <code>.text-muted</code>.</p>
+                    <p class="text-uppercase">Texto en mayúsculas con <code>.text-uppercase</code>.</p>
+                    <p class="text-lowercase">Texto en minúsculas con <code>.text-lowercase</code>.</p>
+                    <p class="text-capitalize">Texto capitalizado con <code>.text-capitalize</code>.</p>
+                </section>
+
+                <section id="grid-flex" class="mt-4">
+                    <h2>Grid y Flex</h2>
+
+                    <h3>Grid</h3>
+                    <p>Ejemplo de una fila de 12 columnas dividida en 3 partes iguales:</p>
+                    <div class="row">
+                        <div class="col-4 bg-light p-3 border">Columna 1 (4/12)</div>
+                        <div class="col-4 bg-light p-3 border">Columna 2 (4/12)</div>
+                        <div class="col-4 bg-light p-3 border">Columna 3 (4/12)</div>
+                    </div>
+
+                    <h3 class="mt-4">Flexbox</h3>
+                    <p>Ejemplo de alineación y distribución con Flexbox:</p>
+                    <div class="d-flex justify-content-around align-items-center bg-light p-3">
+                        <div class="p-3 bg-primary text-white">Elemento 1</div>
+                        <div class="p-3 bg-secondary text-white">Elemento 2</div>
+                        <div class="p-3 bg-success text-white">Elemento 3</div>
+                    </div>
+                </section>
+
+                <section id="charts" class="mt-4">
+                    <h2>Gráficas</h2>
+                    <p>Se muestran ejemplos de gráficas interactivas utilizando ApexCharts:</p>
+
+                    <h3>Gráfica de Dona</h3>
+                    <div id="donut-chart" style="max-width: 500px; margin: auto;"></div>
+
+                    <h3 class="mt-4">Histograma</h3>
+                    <div id="bar-chart" style="max-width: 500px; margin: auto;"></div>
+                </section>
+
+                <section id="alerts" class="mt-4">
+                    <h2>Alertas</h2>
+                    <p>Ejemplo de alertas personalizadas:</p>
+                    <button class="btn btn-primary mb-2"
+                        onclick="showAlert('Información', 'Esta es una alerta informativa.', 'info')">Mostrar
+                        Alerta</button>
+                    <button class="btn btn-success mb-2"
+                        onclick="showAlert('Éxito', 'Operación realizada con éxito.', 'success')">Mostrar Éxito</button>
+                    <button class="btn btn-danger mb-2"
+                        onclick="showAlert('Error', 'Ha ocurrido un error.', 'error')">Mostrar Error</button>
+                    <button class="btn btn-secondary mb-2"
+                        onclick="showAlertNequen('Error', 'Ha ocurrido un error.', 'error')">Alerta que cierra
+                        sola</button>
+                    <button class="btn btn-secondary mb-2"
+                        onclick="showAlertNequenReturn('Hola', 'Esta alerta recarga la página.', 'warning', '', 'recargar',)">Alerta
+                        que recarga</button>
+                    <button class="btn btn-secondary mb-2" onclick="toastifyDanger('Error')">Alerta toast</button>
+                </section>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary"
+            onclick="$('#modalCondonado').modal('hide'); $('#modalAdeudo').modal('show');">
+            Abrir modal
+        </button>
+
+        <div class="main-content border-0">
+            <div class="page-content border-0">
+                <div class="container-fluid border-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <div
+                                class="page-title-box d-sm-flex align-items-start justify-content-between bg-galaxy-transparent border-0">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-user-plus fs-3 text-primary mt-2"></i>
+                                    <h3 class="mt-3 ms-3">Tablas</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <center>
+                        <h1>Bienvenido a Nequén</h1>
+                    </center>
+                    <div class="card border-0 ">
+                        <div class="live-preview border-0">
+                            <div class="d-flex justify-content-center">
+                                <div class="container-fluid">
+                                    <div class="card container-fluid col-md-12 mt-4 mb-4" style="border-radius: 50px;">
+    
+                                        <div class="row">
+                                            <div class="d-flex justify-content-end align-items-center mt-3 gap-4">
+                                                <i class="ri-file-excel-2-line text-success fs-3 mt-2" type="button"
+                                                    id="downloadExcel" title="Descargar datos en Excel"></i>
+                                                <i class="fas fa-user-plus fs-3 text-primary mt-2" type="button"
+                                                    title="Agregar Usuario" style="margin-right: 20px;"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModalgrid"
+                                                    style="cursor:pointer"></i>
+                                            </div>
+                                        </div>
+    
+                                        <div class="table-responsive mt-5 mx-3 ">
+                                            <table class="table table-hover table-striped mb-0" id="tablaAlta">
+                                                <thead style="text-align: center;">
+                                                    <tr class="text-primary">
+                                                        <th>Estado</th>
+                                                        <th>Nombre</th>
+                                                        <th>Teléfono </th>
+                                                        <th>Correo</th>
+                                                        <th>Usuario</th>
+                                                        <th>Tipo de <br>Usuario</th>
+                                                        <th>Agencia</th>
+                                                        <th>Último acceso</th>
+                                                        <th class="m-auto">Acciones</th>
+                                                    </tr>
+                                                    <td>1</td>
+                                                    <td>Andrea</td>
+                                                    <td>5518892025</td>
+                                                    <td>mc_andrea@icloud.com</td>
+                                                    <td>mc_andrea</td>
+                                                    <td>Admin</td>
+                                                    </td>
+                                                    <td>Vlim</td>
+                                                    <td>05/01/24</td>
+                                                    <td></td>
+                                                    </tr>
+                                                    <td>2</td>
+                                                    <td>Andrea</td>
+                                                    <td>5518892025</td>
+                                                    <td>mc_andrea@icloud.com</td>
+                                                    <td>mc_andrea</td>
+                                                    <td>Admin</td>
+                                                    </td>
+                                                    <td>Vlim</td>
+                                                    <td>05/01/24</td>
+                                                    <td></td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbTablaUsuarios">
+                                                <tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="js.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+</body>
+
+</html>
